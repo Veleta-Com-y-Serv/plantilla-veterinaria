@@ -1,0 +1,33 @@
+---
+// Titular de sección (antetítulo con anilla de chapa + título con la última palabra resaltada + texto).
+// Adaptado de AstroWind (Headline.astro), © onWidget, MIT. `partido`: título a la izquierda y texto a la derecha.
+import { partirTitulo } from '../../data/site';
+interface Props {
+  titulo?: string;
+  antetitulo?: string;
+  texto?: string;
+  alinear?: 'izquierda' | 'centro' | 'partido';
+  class?: string;
+  nivel?: 1 | 2;
+}
+const { titulo, antetitulo, texto, alinear = 'izquierda', class: clase = '', nivel = 2 } = Astro.props;
+const H = nivel === 1 ? 'h1' : 'h2';
+const [inicio, final] = partirTitulo(titulo);
+---
+
+{
+  (titulo || antetitulo || texto) && (
+    <div class:list={['titular', { 'titular--centro': alinear === 'centro', 'titular--partido': alinear === 'partido' && texto }, clase]}>
+      <div class="titular-cabeza">
+        {antetitulo && <p class="antetitulo">{antetitulo}</p>}
+        {titulo && (
+          <H class="titulo-seccion">
+            {inicio}
+            <span class="resalte">{final}</span>
+          </H>
+        )}
+      </div>
+      {texto && <p class="titular-texto">{texto}</p>}
+    </div>
+  )
+}

@@ -1,0 +1,148 @@
+/* Clínica veterinaria — estilo cercano, concepto «chapa de collar»: bandas a todo el ancho con las esquinas de
+   arriba muy redondeadas que se apilan unas sobre otras como fichas (turquesa, blanco, coral, menta y turquesa
+   hondo), fotos a sangre recortadas en formas redondas grandes (medio óvalo, arco, círculo), sans de sistema muy
+   pesada con la última palabra del título subrayada en coral y antetítulos con la anilla de una chapa.
+   Todo sale de las cuatro variables de color de site.yaml (--c-primario, --c-acento, --c-fondo, --c-texto). */
+@import "tailwindcss";
+@import "./comun.css";
+@config "../../tailwind.config.mjs";
+
+:root {
+  --fuente-texto: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --fuente-titulos: "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --ancho: 90rem;
+  --radio: 1rem;
+  /* Derivados de los cuatro colores del cliente */
+  --tinta: color-mix(in srgb, var(--c-texto) 88%, #000);
+  --hondo: color-mix(in srgb, var(--c-primario) 45%, color-mix(in srgb, var(--c-texto) 75%, #000));
+  --menta: color-mix(in srgb, var(--c-primario) 11%, var(--c-fondo));
+  --coral-suave: color-mix(in srgb, var(--c-acento) 17%, var(--c-fondo));
+  /* Banda: esquinas de arriba y solape con la anterior */
+  --r: clamp(2rem, 6vw, 5.5rem);
+  --pad: clamp(3.5rem, 7vw, 6.5rem);
+}
+
+@layer base {
+  html { scroll-padding-top: 7rem; }
+  body { font-family: var(--fuente-texto); font-size: 1.0625rem; line-height: 1.65; background: var(--c-fondo); }
+  h1, h2, h3 { font-family: var(--fuente-titulos); font-weight: 800; letter-spacing: -0.035em; line-height: 1.04; }
+  h3 { letter-spacing: -0.02em; line-height: 1.2; }
+}
+
+@layer components {
+  /* ── Bandas ─────────────────────────────────────────────────────────────── */
+  .banda {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    margin-top: calc(-1 * var(--r));
+    padding-top: var(--pad);
+    padding-bottom: calc(var(--pad) + var(--r));
+    border-radius: var(--r) var(--r) 0 0;
+    box-shadow: 0 -22px 44px -34px rgb(0 0 0 / .45);
+    background: var(--c-fondo);
+    color: var(--c-texto);
+  }
+  main > .banda:first-child { margin-top: 0; border-radius: 0; box-shadow: none; }
+  .tono-claro { background: var(--c-fondo); color: var(--c-texto); }
+  .tono-menta { background: var(--menta); color: var(--c-texto); }
+  .tono-coral-suave { background: var(--coral-suave); color: var(--c-texto); }
+  .tono-coral { background: var(--c-acento); color: var(--tinta); }
+  .tono-turquesa { background: var(--c-primario); color: #fff; }
+  .tono-hondo { background: var(--hondo); color: #fff; }
+
+  /* Círculos grandes decorativos */
+  .circulo { position: absolute; z-index: -1; border-radius: 999px; pointer-events: none; }
+
+  /* ── Titulares ──────────────────────────────────────────────────────────── */
+  .antetitulo { display: inline-flex; align-items: center; gap: .65rem; font-size: .78rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--c-primario); }
+  /* La anilla de la chapa: un círculo coral con un agujero, y una línea */
+  .antetitulo::before { content: ""; width: 1.05rem; height: 1.05rem; flex: none; border-radius: 999px; background: radial-gradient(circle, transparent 0 .2rem, var(--c-acento) .21rem); }
+  .antetitulo::after { content: ""; width: 2.25rem; height: 2px; flex: none; border-radius: 2px; background: var(--c-acento); }
+  .tono-turquesa .antetitulo, .tono-hondo .antetitulo { color: #fff; }
+  .tono-coral .antetitulo { color: var(--tinta); }
+  .tono-coral .antetitulo::before { background: radial-gradient(circle, transparent 0 .2rem, var(--tinta) .21rem); }
+  .tono-coral .antetitulo::after { background: var(--tinta); }
+
+  .titulo-seccion { font-size: clamp(2.15rem, 5.2vw, 4.25rem); margin-top: .9rem; }
+  .resalte { background: linear-gradient(transparent 64%, color-mix(in srgb, var(--c-acento) 60%, transparent) 64% 94%, transparent 94%); padding-inline: .04em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .tono-turquesa .resalte, .tono-hondo .resalte, .hero .resalte { background: linear-gradient(transparent 84%, var(--c-acento) 84% 96%, transparent 96%); }
+  .tono-coral .resalte { background: linear-gradient(transparent 64%, color-mix(in srgb, var(--c-fondo) 55%, transparent) 64% 94%, transparent 94%); }
+  .titular { margin-bottom: clamp(2.25rem, 4vw, 3.5rem); }
+  .titular-cabeza { max-width: 52rem; }
+  .titular-texto { margin-top: 1rem; font-size: 1.125rem; opacity: .8; max-width: 40rem; }
+  @media (min-width: 1024px) {
+    .titular--partido { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 4rem; align-items: end; }
+    .titular--partido .titular-texto { margin-top: 0; justify-self: end; }
+  }
+  .titular--centro { text-align: center; }
+  .titular--centro .titular-cabeza, .titular--centro .titular-texto { margin-inline: auto; }
+
+  /* ── Botones ────────────────────────────────────────────────────────────── */
+  .btn { min-height: 3rem; padding-inline: 1.6rem; border-radius: 999px; background: var(--c-acento); color: var(--tinta); font-weight: 750; box-shadow: 0 10px 24px -14px color-mix(in srgb, var(--c-acento) 90%, #000); }
+  .btn:hover { background: color-mix(in srgb, var(--c-acento) 86%, #000); }
+  .btn-sec { min-height: 3rem; padding-inline: 1.5rem; border-radius: 999px; border: 2px solid currentColor; background: transparent; color: inherit; font-weight: 700; }
+  .btn-sec:hover { background: color-mix(in srgb, currentColor 12%, transparent); }
+  .btn--turquesa { background: var(--c-primario); color: #fff; box-shadow: none; }
+  .btn--turquesa:hover { background: color-mix(in srgb, var(--c-primario) 85%, #000); }
+  .tono-coral .btn { background: var(--hondo); color: #fff; box-shadow: none; }
+  .tono-coral .btn:hover { background: color-mix(in srgb, var(--hondo) 80%, #000); }
+
+  /* ── Fichas de color (servicios) ───────────────────────────────────────── */
+  .ficha { border-radius: 2rem; background: var(--menta); transition: background-color .2s ease, color .2s ease, transform .2s ease; }
+  .ficha:hover { background: var(--c-primario); color: #fff; transform: translateY(-3px); }
+  .ficha-icono { display: grid; place-items: center; flex: none; width: 3.25rem; height: 3.25rem; border-radius: 999px; background: var(--c-fondo); color: var(--c-primario); }
+  @media (min-width: 640px) { .ficha-icono { width: 4rem; height: 4rem; } }
+  .ficha:hover .ficha-icono { background: var(--c-acento); color: var(--tinta); }
+
+  /* Pastillas (síntomas de urgencia, especies) */
+  .pastilla { display: inline-flex; align-items: center; gap: .5rem; min-height: 2.5rem; padding: .45rem 1rem; border-radius: 999px; font-weight: 650; font-size: .95rem; line-height: 1.2; }
+
+  /* ── Cabecera ───────────────────────────────────────────────────────────── */
+  .cabecera--chapa { position: sticky; top: 0; z-index: 50; background: var(--c-fondo); color: var(--c-texto); box-shadow: 0 1px 0 color-mix(in srgb, var(--c-texto) 8%, transparent), 0 10px 30px -24px rgb(0 0 0 / .4); }
+  .cabecera-aviso { background: var(--hondo); color: #fff; font-size: .85rem; }
+  .cabecera-aviso a { text-decoration: none; font-weight: 700; }
+  .cabecera-aviso a:hover { text-decoration: underline; }
+  .cabecera--chapa .cabecera-fila { min-height: 4.5rem; }
+  .cabecera--chapa .marca-inicial { display: grid; place-items: center; width: 2.6rem; height: 2.6rem; flex: none; border-radius: 999px; background: var(--c-primario); color: #fff; font-family: var(--fuente-titulos); font-weight: 900; font-size: 1.2rem; box-shadow: 0 0 0 3px var(--c-fondo), 0 0 0 5px var(--c-acento); }
+  .cabecera--chapa .marca-nombre { font-family: var(--fuente-titulos); font-weight: 850; font-size: 1.15rem; letter-spacing: -0.02em; }
+  .cabecera--chapa .cabecera-nav { gap: .25rem; }
+  .cabecera--chapa .cabecera-nav a { padding: .55rem .8rem; border-radius: 999px; font-weight: 650; font-size: .95rem; white-space: nowrap; }
+  .cabecera--chapa .cabecera-nav a:hover { background: var(--menta); color: var(--c-primario); }
+  .cabecera--chapa .menu-movil summary { min-height: 2.75rem; padding: .5rem 1rem; border-radius: 999px; background: var(--menta); color: var(--c-primario); }
+  .cabecera--chapa .menu-movil-panel { padding: 1rem 1rem 1.5rem; border-radius: 0 0 2rem 2rem; }
+  .cabecera--chapa .menu-movil-panel a { font-weight: 650; min-height: 2.75rem; display: flex; align-items: center; }
+  .cabecera--chapa .menu-movil-panel .btn { justify-content: center; }
+
+  /* ── Pie ────────────────────────────────────────────────────────────────── */
+  .pie--chapa { position: relative; margin-top: calc(-1 * var(--r)); padding-top: calc(var(--pad) * .8); border-radius: var(--r) var(--r) 0 0; background: var(--hondo); color: #fff; box-shadow: 0 -22px 44px -34px rgb(0 0 0 / .45); }
+  .pie--chapa .pie-nombre { font-family: var(--fuente-titulos); font-size: clamp(1.6rem, 3vw, 2.25rem); font-weight: 850; letter-spacing: -0.03em; line-height: 1.1; }
+  .pie--chapa .pie-titulo { color: var(--c-acento); opacity: 1; font-weight: 800; letter-spacing: .16em; }
+  .pie--chapa .pie-redes a { border-radius: 999px; background: color-mix(in srgb, #fff 12%, transparent); padding: .6rem; }
+  .pie--chapa .pie-redes a:hover { background: var(--c-acento); color: var(--tinta); }
+  @media (min-width: 768px) { .pie--chapa .pie-rejilla { grid-template-columns: 1.4fr 1.2fr 1fr; gap: 3rem; } }
+  @media (min-width: 1024px) { .pie--chapa .pie-rejilla--cuatro { grid-template-columns: 1.4fr 1.2fr 1fr 1.2fr; } }
+  .pie-urgencias { border-radius: 1.75rem; background: var(--c-acento); color: var(--tinta); padding: 1.25rem 1.4rem; }
+
+  /* ── Formularios ────────────────────────────────────────────────────────── */
+  .campo input, .campo textarea, .campo select { width: 100%; min-height: 3rem; font: inherit; color: var(--c-texto); background: var(--c-fondo); padding: .7rem 1rem; border: 2px solid color-mix(in srgb, var(--c-texto) 14%, transparent); border-radius: 1.1rem; }
+  .campo select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%); background-position: calc(100% - 1.3rem) 1.3rem, calc(100% - .95rem) 1.3rem; background-size: .35rem .35rem; background-repeat: no-repeat; padding-right: 2.5rem; }
+  .campo input:focus, .campo textarea:focus, .campo select:focus { border-color: var(--c-acento); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--c-acento) 35%, transparent); }
+  .formulario .btn { justify-self: stretch; }
+  @media (min-width: 640px) { .formulario .btn { justify-self: start; } }
+
+  /* ── Preguntas ──────────────────────────────────────────────────────────── */
+  .faq { border-radius: 1.75rem; background: var(--menta); }
+  .faq summary { list-style: none; cursor: pointer; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq-signo { transition: transform .2s ease, background-color .2s ease; }
+  .faq[open] .faq-signo { transform: rotate(45deg); background: var(--c-acento); color: var(--tinta); }
+
+  .texto-largo h2 { font-size: 1.45rem; }
+}
+
+/* Con seis apartados y un nombre largo, el menú en línea solo cabe desde 1180 px: hasta ahí, el plegable. */
+@media (min-width: 900px) and (max-width: 1179px) {
+  .cabecera--chapa .cabecera-nav { display: none; }
+  .cabecera--chapa .menu-movil { display: block; }
+}

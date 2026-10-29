@@ -1,0 +1,80 @@
+---
+// Cabecera fija a todo el ancho: franja fina en turquesa hondo con el teléfono de urgencias (sección `urgencias`
+// activa: su destacado.titulo y destacado.telefono; si no, el teléfono de contacto) y el horario, y debajo la barra
+// blanca con la marca (chapa redonda con la inicial), el menú en píldoras y el botón coral.
+// En móvil, menú plegable sin JavaScript (<details>).
+import { seccion, site, tel } from '../data/site';
+import type { Enlace } from '../data/site';
+import Icono from './ui/Icono.astro';
+interface Props { variante?: string; cta?: Enlace | null }
+const { variante = 'chapa', cta = null } = Astro.props;
+const urg = seccion('urgencias');
+const d = (urg?.destacado ?? {}) as { titulo?: string; telefono?: string };
+const telUrg = (d.telefono ?? '').toString().trim();
+const aviso = telUrg
+  ? { etiqueta: (d.titulo ?? '').toString().trim() || (urg?.antetitulo ?? ''), numero: telUrg }
+  : site.contacto.telefono
+    ? { etiqueta: '', numero: site.contacto.telefono }
+    : null;
+const horario = site.contacto.horario;
+---
+
+<header class={`cabecera cabecera--${variante}`}>
+  {
+    (aviso || horario) && (
+      <div class="cabecera-aviso">
+        <div class="contenedor flex min-h-9 items-center justify-between gap-4 py-1.5">
+          {aviso && (
+            <a href={tel(aviso.numero)} class="inline-flex min-w-0 items-center gap-2">
+              <span class="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-acento text-[var(--tinta)]">
+                <Icono nombre="cruz" tam={12} />
+              </span>
+              <span class="truncate">
+                {aviso.etiqueta && <span class="font-semibold opacity-80">{aviso.etiqueta}: </span>}
+                {aviso.numero}
+              </span>
+            </a>
+          )}
+          {horario && <p class="hidden truncate opacity-80 lg:block">{horario}</p>}
+        </div>
+      </div>
+    )
+  }
+  <div class="contenedor cabecera-fila">
+    <a href="/" class="marca" aria-label={`${site.nombre}, inicio`}>
+      {
+        site.logo ? (
+          <img src={site.logo} alt={site.nombre} class="marca-logo" width="160" height="40" />
+        ) : (
+          <>
+            <span class="marca-inicial" aria-hidden="true">{site.nombre.trim().charAt(0)}</span>
+            <span class="marca-nombre">{site.nombre}</span>
+          </>
+        )
+      }
+    </a>
+    <nav class="cabecera-nav" aria-label="Menú principal">
+      {site.menu.map((e) => <a href={e.url}>{e.texto}</a>)}
+    </nav>
+    {cta && cta.url && <a href={cta.url} class="btn cabecera-cta">{cta.texto}</a>}
+    {
+      site.menu.length > 0 && (
+        <details class="menu-movil">
+          <summary>
+            <span class="menu-movil-icono" aria-hidden="true" />
+            <span>Menú</span>
+          </summary>
+          <nav class="menu-movil-panel" aria-label="Menú">
+            {site.menu.map((e) => <a href={e.url}>{e.texto}</a>)}
+            {cta && cta.url && <a href={cta.url} class="btn">{cta.texto}</a>}
+          </nav>
+        </details>
+      )
+    }
+  </div>
+</header>
+<script is:inline>
+  document.querySelectorAll('.menu-movil a').forEach(function (a) {
+    a.addEventListener('click', function () { a.closest('details').open = false; });
+  });
+</script>

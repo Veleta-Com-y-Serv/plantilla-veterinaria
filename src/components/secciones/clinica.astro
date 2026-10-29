@@ -1,0 +1,84 @@
+---
+// La clínica (sobre nosotros): banda menta partida 50/50. La foto toca el borde izquierdo de la ventana y se
+// recorta en medio óvalo hacia dentro; a la derecha, titular, párrafos, ventajas con icono (`items`) y botón.
+// Debajo, `galeria` en franja de fotos de borde a borde (2 columnas en móvil, 4 en escritorio).
+import { seccion, parrafos } from '../../data/site';
+import { altGaleria, altSeccion } from '../../lib/seo';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const items = s ? s.items.filter((it) => it?.titulo) : [];
+const galeria = s ? s.galeria.filter(Boolean).slice(0, 8) : [];
+---
+
+{
+  s && (
+    <Seccion id={Astro.props.id} tono="menta" contenedor={false}>
+      <div class:list={['clinica-fila', { 'clinica-fila--sin-foto': !s.imagen }]}>
+        {s.imagen && (
+          <div class="clinica-foto">
+            <Imagen src={s.imagen} alt={altSeccion(s)} ancho={1200} alto={1400} class="h-full w-full object-cover" />
+          </div>
+        )}
+        <div class="clinica-texto">
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} class="!mb-0" />
+          {s.texto && (
+            <div class="mt-6 space-y-4 text-[1.08rem] opacity-85">
+              {parrafos(s.texto).map((p) => <p>{p}</p>)}
+            </div>
+          )}
+          {items.length > 0 && (
+            <ul class="mt-8 grid gap-3">
+              {items.map((it) => (
+                <li class="flex items-center gap-4">
+                  <span class="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-primario text-white">
+                    <Icono nombre={it.icono} tam={22} />
+                  </span>
+                  <span>
+                    <span class="block font-bold">{it.titulo}</span>
+                    {it.texto && <span class="block text-sm opacity-75">{it.texto}</span>}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+          {s.cta?.url && <a class="btn btn--turquesa mt-9" href={s.cta.url}>{s.cta.texto}</a>}
+        </div>
+      </div>
+      {galeria.length > 0 && (
+        <ul class:list={['clinica-galeria', { 'clinica-galeria--impar': galeria.length % 2 === 1 }]}>
+          {galeria.map((g, i) => (
+            <li>
+              <Imagen src={g} alt={altGaleria(i)} ancho={800} alto={800} class="aspect-square h-full w-full object-cover" />
+            </li>
+          ))}
+        </ul>
+      )}
+    </Seccion>
+  )
+}
+
+<style>
+  .clinica-fila { display: grid; gap: 2.5rem; }
+  .clinica-foto { overflow: hidden; margin-top: calc(-1 * var(--pad)); aspect-ratio: 4 / 3.4; border-radius: 0 0 50% 50% / 0 0 22% 22%; }
+  .clinica-texto { padding-inline: 1rem; max-width: 42rem; }
+  @media (min-width: 768px) {
+    .clinica-fila { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(2.5rem, 6vw, 6rem); }
+    .clinica-foto { align-self: stretch; margin-top: calc(-1 * var(--pad)); aspect-ratio: auto; height: calc(100% + var(--pad)); min-height: 36rem; border-radius: 0 50% 50% 0 / 0 38% 38% 0; }
+    .clinica-texto { padding-inline: 0 2rem; }
+    .clinica-fila--sin-foto { grid-template-columns: minmax(0, 1fr); }
+    .clinica-fila--sin-foto .clinica-texto { width: 100%; max-width: var(--ancho); margin-inline: auto; padding-inline: 2rem; }
+  }
+  @media (min-width: 1440px) { .clinica-texto { padding-right: 4rem; } }
+  .clinica-galeria { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: clamp(3rem, 6vw, 5.5rem); }
+  .clinica-galeria--impar li:first-child { grid-column: span 2; }
+  .clinica-galeria--impar li:first-child :global(img) { aspect-ratio: 2 / 1; }
+  @media (min-width: 640px) {
+    .clinica-galeria { grid-template-columns: none; grid-auto-columns: minmax(0, 1fr); grid-auto-flow: column; }
+    .clinica-galeria--impar li:first-child { grid-column: auto; }
+    .clinica-galeria--impar li:first-child :global(img) { aspect-ratio: 1; }
+  }
+</style>

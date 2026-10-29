@@ -1,0 +1,36 @@
+---
+// Servicios: banda blanca con el titular partido (título a la izquierda, texto a la derecha) y una rejilla de
+// fichas menta de esquinas muy redondeadas, con el icono en un círculo blanco (4 columnas en escritorio).
+// `items`: {titulo, texto, icono}. Sin servicios, solo el titular.
+import { seccion } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const items = s ? s.items.filter((it) => it?.titulo) : [];
+---
+
+{
+  s && (
+    <Seccion id={Astro.props.id} tono="claro">
+      <Titular alinear="partido" antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+      {items.length > 0 && (
+        <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+          {items.map((it) => (
+            <li class="ficha flex gap-4 p-5 sm:flex-col sm:gap-0 sm:p-6 md:p-8">
+              <span class="ficha-icono">
+                <Icono nombre={it.icono} tam={28} />
+              </span>
+              <div class="min-w-0">
+                <h3 class="text-[1.2rem] sm:mt-6 sm:text-[1.35rem]">{it.titulo}</h3>
+                {it.texto && <p class="mt-1.5 text-[.96rem] opacity-80 sm:mt-2">{it.texto}</p>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
+      {s.cta?.url && <a class="btn mt-10" href={s.cta.url}>{s.cta.texto}</a>}
+    </Seccion>
+  )
+}

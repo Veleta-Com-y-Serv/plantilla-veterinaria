@@ -1,0 +1,40 @@
+---
+// Equipo: banda blanca; cada persona en un círculo grande con un aro coral desplazado detrás (como una chapa),
+// nombre, cargo y especialidad (`texto`). 2 columnas en móvil, 4 en escritorio. Sin personas, solo el titular.
+import { seccion } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Imagen from '../ui/Imagen.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const personas = s ? s.personas.filter((p) => p?.nombre) : [];
+---
+
+{
+  s && (
+    <Seccion id={Astro.props.id} tono="claro">
+      <Titular alinear="partido" antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+      {personas.length > 0 && (
+        <ul class="grid grid-cols-2 gap-x-4 gap-y-10 md:gap-x-8 lg:grid-cols-4">
+          {personas.map((p, i) => (
+            <li class="text-center">
+              <div class:list={['persona-marco', i % 2 ? 'persona-marco--b' : '']}>
+                <Imagen src={p.foto || '/placeholders/persona.svg'} alt={p.nombre} ancho={600} alto={600} class="persona-foto" />
+              </div>
+              <p class="mt-5 font-display text-lg font-extrabold leading-tight md:text-xl">{p.nombre}</p>
+              {p.cargo && <p class="mt-1 text-sm font-bold text-primario">{p.cargo}</p>}
+              {p.texto && <p class="mt-1 text-sm opacity-70">{p.texto}</p>}
+            </li>
+          ))}
+        </ul>
+      )}
+    </Seccion>
+  )
+}
+
+<style>
+  .persona-marco { position: relative; width: min(100%, 17rem); margin-inline: auto; aspect-ratio: 1; }
+  .persona-marco::before { content: ""; position: absolute; inset: 0; border-radius: 999px; background: var(--c-acento); transform: translate(7%, 5%); }
+  .persona-marco--b::before { background: var(--menta); transform: translate(-7%, 5%); }
+  .persona-marco :global(.persona-foto) { position: relative; width: 100%; height: 100%; border-radius: 999px; object-fit: cover; background: var(--menta); border: 5px solid var(--c-fondo); }
+</style>

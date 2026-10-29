@@ -1,0 +1,52 @@
+---
+// Opiniones: banda coral suave con unas comillas gigantes; cada opinión (`testimonios` {texto, autor}) en un
+// bocadillo blanco de esquinas muy redondeadas con la cola abajo a la izquierda y el autor con una huella.
+// La primera ocupa dos columnas en escritorio si hay tres o más. Sin opiniones no se pinta.
+import { seccion } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const testimonios = s ? s.testimonios.filter((t) => t?.texto) : [];
+---
+
+{
+  s && testimonios.length > 0 && (
+    <Seccion id={Astro.props.id} tono="coral-suave">
+      <span class="op-comillas" aria-hidden="true">“</span>
+      <Titular alinear="partido" antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+      <ul class:list={['op-rejilla', { 'op-rejilla--tres': testimonios.length >= 3 }]}>
+        {testimonios.map((t) => (
+          <li>
+            <figure class="op-bocadillo">
+              <blockquote class="op-texto">{t.texto}</blockquote>
+              {t.autor && (
+                <figcaption class="op-autor">
+                  <span class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-acento text-[var(--tinta)]">
+                    <Icono nombre="huella" tam={18} />
+                  </span>
+                  {t.autor}
+                </figcaption>
+              )}
+            </figure>
+          </li>
+        ))}
+      </ul>
+    </Seccion>
+  )
+}
+
+<style>
+  .op-comillas { position: absolute; z-index: -1; right: 4%; top: -3rem; font-family: Georgia, "Times New Roman", serif; font-size: clamp(14rem, 30vw, 26rem); line-height: 1; color: color-mix(in srgb, var(--c-acento) 45%, transparent); pointer-events: none; }
+  .op-rejilla { display: grid; gap: 1.25rem; }
+  @media (min-width: 768px) { .op-rejilla { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1100px) {
+    .op-rejilla--tres { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .op-rejilla--tres > li:first-child { grid-column: span 2; }
+    .op-rejilla--tres > li:first-child .op-texto { font-size: clamp(1.5rem, 2vw, 1.9rem); }
+  }
+  .op-bocadillo { display: flex; flex-direction: column; justify-content: space-between; gap: 1.5rem; height: 100%; padding: clamp(1.5rem, 2.5vw, 2.25rem); border-radius: 2.25rem 2.25rem 2.25rem .5rem; background: var(--c-fondo); color: var(--c-texto); box-shadow: 0 24px 50px -36px rgb(0 0 0 / .4); }
+  .op-texto { font-family: var(--fuente-titulos); font-size: 1.2rem; font-weight: 650; line-height: 1.4; letter-spacing: -0.01em; }
+  .op-autor { display: flex; align-items: center; gap: .75rem; font-size: .95rem; font-weight: 700; }
+</style>

@@ -1,0 +1,102 @@
+---
+// Portada a pantalla casi completa: foto a sangre de la mascota con velo turquesa desde la izquierda (desde abajo
+// en móvil), título enorme con la última palabra resaltada en coral, texto corto, dos botones, especies en
+// píldoras (`especies`) y una chapa redonda coral que gira con `destacado` {titulo, texto} («24 h · Urgencias…»).
+// Sin foto: banda turquesa plena con círculos grandes.
+import { seccion, partirTitulo } from '../../data/site';
+import type { Item } from '../../data/site';
+import { altHero } from '../../lib/seo';
+import Imagen from '../ui/Imagen.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string; primera?: boolean }
+const { id, primera = false } = Astro.props;
+const s = seccion(id);
+const destacado = (s?.destacado ?? {}) as { titulo?: string; texto?: string };
+const [inicio, final] = partirTitulo(s?.titulo);
+const H = primera ? 'h1' : 'h2';
+// `especies` {titulo, icono}: animales que atienden, en píldoras (de respaldo, `items`).
+const especies = (Array.isArray(s?.especies) && s.especies.length ? (s.especies as Item[]) : (s?.items ?? [])).filter((it) => it?.titulo);
+---
+
+{
+  s && (
+    <section id={id} class:list={['banda hero', { 'hero--sin-foto': !s.imagen }]}>
+      {s.imagen && <Imagen src={s.imagen} alt={altHero()} ancho={2400} alto={1350} prioridad={primera} class="hero-foto" />}
+      <div class="hero-velo" aria-hidden="true" />
+      <span class="circulo hero-circulo-1" aria-hidden="true" />
+      <span class="circulo hero-circulo-2" aria-hidden="true" />
+      <div class="contenedor hero-cuerpo">
+        <div class="hero-texto">
+          {s.antetitulo && <p class="antetitulo">{s.antetitulo}</p>}
+          {s.titulo && (
+            <H class="hero-titulo">
+              {inicio}
+              <span class="resalte">{final}</span>
+            </H>
+          )}
+          {s.texto && <p class="hero-parrafo">{s.texto}</p>}
+          {(s.cta?.url || s.cta_secundario?.url) && (
+            <div class="mt-8 flex flex-wrap gap-3">
+              {s.cta?.url && <a class="btn" href={s.cta.url}>{s.cta.texto}</a>}
+              {s.cta_secundario?.url && (
+                <a class="btn-sec hero-sec" href={s.cta_secundario.url}>
+                  <Icono nombre="cruz" tam={16} /> {s.cta_secundario.texto}
+                </a>
+              )}
+            </div>
+          )}
+          {especies.length > 0 && (
+            <ul class="mt-8 flex flex-wrap gap-2">
+              {especies.map((it) => (
+                <li class="pastilla hero-pastilla">
+                  <Icono nombre={it.icono ?? 'huella'} tam={18} />
+                  {it.titulo}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+        {destacado.titulo && (
+          <p class="hero-chapa">
+            <span class="hero-chapa-anilla" aria-hidden="true" />
+            <span class="hero-chapa-titulo">{destacado.titulo}</span>
+            {destacado.texto && <span class="hero-chapa-texto">{destacado.texto}</span>}
+          </p>
+        )}
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .hero { display: flex; align-items: flex-end; min-height: 88svh; margin-top: 0; border-radius: 0; box-shadow: none; padding-top: clamp(10rem, 30svh, 14rem); background: var(--hondo); color: #fff; }
+  .hero :global(.hero-foto) { position: absolute; inset: 0; z-index: -3; width: 100%; height: 100%; object-fit: cover; object-position: 62% 40%; }
+  .hero-velo { position: absolute; inset: 0; z-index: -2; background: linear-gradient(0deg, color-mix(in srgb, var(--hondo) 94%, transparent) 0%, color-mix(in srgb, var(--hondo) 72%, transparent) 45%, color-mix(in srgb, var(--hondo) 10%, transparent) 85%); }
+  @media (min-width: 900px) {
+    .hero-velo { background: linear-gradient(95deg, color-mix(in srgb, var(--hondo) 92%, transparent) 0%, color-mix(in srgb, var(--hondo) 70%, transparent) 38%, color-mix(in srgb, var(--hondo) 0%, transparent) 68%), linear-gradient(0deg, color-mix(in srgb, var(--hondo) 45%, transparent), transparent 40%); }
+  }
+  .hero-circulo-1, .hero-circulo-2 { display: none; }
+  .hero--sin-foto { background: var(--c-primario); }
+  .hero--sin-foto .hero-velo { display: none; }
+  .hero--sin-foto .hero-circulo-1 { display: block; width: 46rem; height: 46rem; right: -14rem; top: -10rem; background: color-mix(in srgb, #fff 9%, transparent); }
+  .hero--sin-foto .hero-circulo-2 { display: block; width: 22rem; height: 22rem; right: 18%; bottom: -6rem; background: color-mix(in srgb, var(--c-acento) 55%, transparent); }
+  .hero-cuerpo { position: relative; width: 100%; }
+  .hero-texto { max-width: 56rem; }
+  .hero .antetitulo { color: #fff; }
+  .hero-titulo { margin-top: 1rem; font-size: clamp(2.6rem, 8.2vw, 6.75rem); font-weight: 850; line-height: .98; letter-spacing: -0.045em; text-shadow: 0 2px 30px rgb(0 0 0 / .18); }
+  .hero-parrafo { margin-top: 1.4rem; max-width: 38rem; font-size: clamp(1.05rem, 1.6vw, 1.3rem); line-height: 1.55; opacity: .92; }
+  .hero :global(.hero-sec) { color: #fff; }
+  .hero-pastilla { background: color-mix(in srgb, #fff 16%, transparent); color: #fff; backdrop-filter: blur(6px); border: 1px solid color-mix(in srgb, #fff 25%, transparent); }
+  .hero-cuerpo { position: static; }
+  .hero-chapa { position: absolute; top: 1.5rem; right: 1rem; display: grid; place-content: center; justify-items: center; gap: .1rem; width: 7.5rem; height: 7.5rem; margin: 0; padding: .9rem; border-radius: 999px; background: var(--c-acento); color: var(--tinta); text-align: center; transform: rotate(-9deg); box-shadow: 0 18px 40px -18px rgb(0 0 0 / .55); }
+  .hero-chapa-anilla { position: absolute; top: .7rem; left: 50%; width: .9rem; height: .9rem; margin-left: -.45rem; border-radius: 999px; background: var(--hondo); box-shadow: inset 0 0 0 3px color-mix(in srgb, #fff 35%, transparent); }
+  .hero-chapa-titulo { font-family: var(--fuente-titulos); font-size: 1.75rem; font-weight: 900; line-height: 1; letter-spacing: -0.04em; }
+  .hero-chapa-texto { font-size: .68rem; font-weight: 700; line-height: 1.2; max-width: 5.6rem; }
+  @media (max-width: 639px) { .hero .antetitulo::after { display: none; } }
+  @media (min-width: 1024px) {
+    .hero-cuerpo { position: relative; }
+    .hero-chapa { top: auto; right: 2rem; bottom: .5rem; width: 12.5rem; height: 12.5rem; padding: 1rem; }
+    .hero-chapa-titulo { font-size: 3rem; }
+    .hero-chapa-texto { font-size: .9rem; line-height: 1.25; max-width: 8.5rem; }
+  }
+</style>

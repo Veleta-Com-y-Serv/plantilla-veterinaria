@@ -1,0 +1,27 @@
+---
+// Envoltorio de sección. Adaptado de AstroWind (WidgetWrapper.astro), © onWidget, licencia MIT (LICENSE-ASTROWIND.md).
+// Pinta una banda a todo el ancho (esquinas de arriba redondeadas que se solapan con la banda anterior) con su tono
+// y, dentro, el contenedor de 90 rem con 16 px de margen lateral en móvil. `contenedor: false` deja el contenido
+// a sangre (fotos que tocan el borde de la ventana).
+interface Props {
+  id?: string;
+  class?: string;
+  contenedor?: string | false;
+  tono?: 'claro' | 'menta' | 'coral' | 'coral-suave' | 'turquesa' | 'hondo';
+  as?: string;
+  etiqueta?: string;
+}
+const { id, class: clase = '', contenedor = '', tono = 'claro', as: Etiqueta = 'section', etiqueta } = Astro.props;
+---
+
+<Etiqueta class:list={['banda', `tono-${tono}`, clase]} id={id} aria-label={etiqueta}>
+  {
+    contenedor === false ? (
+      <slot />
+    ) : (
+      <div class:list={['contenedor', contenedor]}>
+        <slot />
+      </div>
+    )
+  }
+</Etiqueta>

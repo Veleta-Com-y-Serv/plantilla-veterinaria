@@ -1,0 +1,40 @@
+---
+// Preguntas frecuentes: banda blanca partida; a la izquierda (fija al bajar en escritorio) el titular, el texto
+// y el teléfono; a la derecha el acordeón nativo (<details>) en pastillas menta, sin JavaScript.
+import { seccion, site, tel } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const preguntas = s ? s.preguntas.filter((p) => p && p.pregunta) : [];
+const c = site.contacto;
+---
+
+{
+  s && preguntas.length > 0 && (
+    <Seccion id={Astro.props.id} tono="claro">
+      <div class="grid gap-10 lg:grid-cols-[minmax(0,.9fr)_minmax(0,1.3fr)] lg:gap-20">
+        <div class="lg:sticky lg:top-36 lg:self-start">
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} class="!mb-0" />
+          {c.telefono && (
+            <a class="btn btn--turquesa mt-8" href={tel(c.telefono)}>
+              <Icono nombre="telefono" tam={18} /> {c.telefono}
+            </a>
+          )}
+        </div>
+        <div class="grid content-start gap-3">
+          {preguntas.map((p, i) => (
+            <details class="faq px-5 md:px-7" open={i === 0}>
+              <summary class="flex min-h-[3.5rem] items-center justify-between gap-4 py-4 text-[1.08rem] font-bold">
+                {p.pregunta}
+                <span class="faq-signo grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[var(--c-fondo)] text-xl text-primario" aria-hidden="true">+</span>
+              </summary>
+              <p class="pb-6 opacity-85">{p.respuesta}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </Seccion>
+  )
+}

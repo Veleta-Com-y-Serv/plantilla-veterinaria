@@ -1,0 +1,93 @@
+# Metadatos de la plantilla para el catálogo de NoExpertise.
+id: veterinaria
+nombre: Clínica veterinaria
+descripcion: Web cercana para clínicas veterinarias, con urgencias 24 h, tarifas, consejos y cita por especie.
+sectores:
+  - { id: veterinaria, nombre: Veterinaria }
+  - { id: clinica-veterinaria, nombre: Clínica veterinaria }
+  - { id: peluqueria-canina, nombre: Peluquería canina }
+  - { id: tienda-mascotas, nombre: Tienda de mascotas }
+  - { id: adiestramiento, nombre: Adiestramiento canino }
+secciones:
+  - { id: hero, nombre: Portada }
+  - { id: servicios, nombre: Servicios }
+  - { id: urgencias, nombre: Urgencias }
+  - { id: clinica, nombre: La clínica }
+  - { id: equipo, nombre: Equipo }
+  - { id: tarifas, nombre: Tarifas }
+  - { id: consejos, nombre: Consejos }
+  - { id: opiniones, nombre: Opiniones }
+  - { id: preguntas, nombre: Preguntas frecuentes }
+  - { id: cita, nombre: Pedir cita }
+  - { id: contacto, nombre: Contacto }
+estilo: cercano
+plan_minimo: presencia
+version: 1.0.0
+base: astrowind
+demo_url: https://demo-plantilla-veterinaria.noexpertise.com
+activa: true
+orden: 270
+
+# Asistente de puesta en marcha (NoExpertise): un paso por pantalla. Rutas del site sin índices;
+# tipos: texto y lista (la IA propone), datos, fotos, eleccion (colores y logo) y repaso.
+asistente:
+  - id: negocio
+    titulo: "Tu clínica"
+    pregunta: "¿Cómo se llama tu clínica y qué animales atendéis?"
+    ayuda: "Especies, especialidades y desde dónde trabajáis."
+    tipo: texto
+    campos: [nombre, eslogan, seo.titulo, seo.descripcion, secciones.hero.antetitulo, secciones.hero.titulo, secciones.hero.texto, secciones.hero.especies, secciones.hero.destacado.titulo, secciones.hero.destacado.texto]
+  - id: contacto
+    titulo: "Cómo te encuentran"
+    pregunta: "¿Dónde está la clínica y cómo os pueden llamar o escribir?"
+    ayuda: "Solo lo que quieras que vean tus clientes. Lo que dejes vacío no sale en tu web."
+    tipo: datos
+    campos: [contacto.telefono, contacto.whatsapp, contacto.email, contacto.direccion, contacto.horario, redes.instagram, redes.facebook]
+  - id: servicios
+    titulo: "Servicios"
+    pregunta: "¿Qué servicios ofrecéis? Uno por línea: consulta, vacunas, cirugía, peluquería…"
+    tipo: texto
+    campos: [secciones.servicios.titulo, secciones.servicios.texto, secciones.servicios.items]
+  - id: urgencias
+    titulo: "Urgencias"
+    pregunta: "¿Atendéis urgencias? Cuéntame el horario y a qué teléfono hay que llamar."
+    ayuda: "Si no hacéis urgencias, salta este paso y oculta el apartado en Contenido."
+    tipo: texto
+    campos: [secciones.urgencias.titulo, secciones.urgencias.texto, secciones.urgencias.destacado.titulo, secciones.urgencias.destacado.telefono, secciones.urgencias.destacado.texto, secciones.urgencias.items]
+  - id: clinica
+    titulo: "La clínica"
+    pregunta: "Cuéntame cómo es la clínica y cómo trabajáis con cada animal."
+    tipo: texto
+    campos: [secciones.clinica.titulo, secciones.clinica.texto, secciones.clinica.items]
+  - id: equipo
+    titulo: "Tu equipo"
+    pregunta: "¿Quién forma el equipo? Nombre y qué hace cada uno, uno por línea."
+    ayuda: "Las fotos las pones luego en Contenido."
+    tipo: lista
+    campos: [secciones.equipo.personas]
+  - id: tarifas
+    titulo: "Tarifas"
+    pregunta: "¿Quieres enseñar precios orientativos? Escribe cada servicio con su precio, uno por línea."
+    ayuda: "Es opcional: si prefieres no poner precios, deja solo los nombres o salta este paso."
+    tipo: lista
+    campos: [secciones.tarifas.tarifas]
+  - id: preguntas
+    titulo: "Preguntas frecuentes"
+    pregunta: "¿Qué os preguntan más a menudo? Escribe cada pregunta y lo que respondéis."
+    ayuda: "Si lo prefieres, añádelas luego en Contenido."
+    tipo: lista
+    campos: [secciones.preguntas.preguntas]
+  - id: fotos
+    titulo: "Tus fotos"
+    pregunta: "Pon una foto de portada y, si quieres, alguna más de la clínica."
+    ayuda: "Sube las tuyas o elige una del banco. Las que no cambies se quedan como están."
+    tipo: fotos
+    campos: [secciones.hero.imagen, secciones.clinica.imagen, secciones.clinica.galeria, secciones.cita.imagen, secciones.contacto.imagen]
+  - id: aspecto
+    titulo: "Colores y logo"
+    pregunta: "Elige los colores de tu web y, si tienes, tu logo."
+    tipo: eleccion
+    campos: [colores.primario, colores.acento, logo]
+  - id: repaso
+    titulo: "Repaso"
+    tipo: repaso

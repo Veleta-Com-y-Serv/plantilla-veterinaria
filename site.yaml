@@ -1,0 +1,179 @@
+# Contenido de la web. Es lo único que rellena la plataforma NoExpertise.
+# Las secciones se muestran en el orden de este fichero. Para ocultar una: activa: false.
+# Apartado nuevo: un id propio (es su ancla, /#id) con `tipo:` = el diseño de otra sección o `texto`.
+nombre: Lauhanka Clínica Veterinaria
+eslogan: Medicina, cirugía y peluquería para perros, gatos y exóticos en Vitoria-Gasteiz.
+sector: veterinaria
+logo: ""          # ruta a una imagen en public/ (p. ej. /logo.svg). Vacío = nombre en texto.
+colores:
+  primario: "#0b7a75"
+  acento: "#ff7a63"
+  fondo: "#ffffff"
+  texto: "#12302f"
+contacto:
+  telefono: "945 12 48 30"
+  email: hola@lauhankavet.es
+  direccion: Calle Florida 47, 01005 Vitoria-Gasteiz (Álava)
+  horario: "Lunes a viernes, de 9:30 a 13:30 y de 16:30 a 20:00. Sábados, de 10:00 a 13:30."
+  whatsapp: "+34 655 48 12 30"
+redes:
+  instagram: https://www.instagram.com/
+  facebook: https://www.facebook.com/
+  linkedin: ""
+menu:
+  - { texto: Servicios, url: "/#servicios" }
+  - { texto: Urgencias, url: "/#urgencias" }
+  - { texto: La clínica, url: "/#clinica" }
+  - { texto: Tarifas, url: "/#tarifas" }
+  - { texto: Consejos, url: "/#consejos" }
+  - { texto: Contacto, url: "/#contacto" }
+boton_cabecera: { texto: Pedir cita, url: "/#cita" }
+seo:
+  titulo: Lauhanka · Clínica veterinaria en Vitoria-Gasteiz
+  descripcion: "Clínica veterinaria en el centro de Vitoria-Gasteiz: consulta, vacunas, cirugía, peluquería y urgencias 24 horas para perros, gatos y exóticos."
+  tipo: VeterinaryCare
+marca_pie: true
+
+secciones:
+  hero:
+    activa: true
+    antetitulo: Clínica veterinaria en Vitoria-Gasteiz
+    titulo: Cuidamos de quien te espera en casa.
+    texto: "Medicina, cirugía y peluquería para perros, gatos y pequeños animales. Con calma, sin prisas y con el teléfono de urgencias siempre encendido."
+    imagen: /fotos/hero.jpg
+    cta: { texto: Pedir cita, url: "/#cita" }
+    cta_secundario: { texto: Urgencias 24 h, url: "/#urgencias" }
+    especies:   # animales que atendéis, en píldoras
+      - { titulo: Perros y gatos, icono: gato }
+      - { titulo: Conejos y hurones, icono: huella }
+      - { titulo: Aves y reptiles, icono: huella }
+    destacado: { titulo: "24 h", texto: Urgencias todos los días del año }
+
+  servicios:
+    activa: true
+    antetitulo: Servicios
+    titulo: Todo lo que necesita, bajo el mismo techo
+    texto: "Desde la primera vacuna del cachorro hasta los cuidados de un abuelo de quince años. Te explicamos cada paso y su precio antes de empezar."
+    items:
+      - { titulo: Consulta general, texto: "Revisión completa, diagnóstico y tratamiento, con tiempo para tus preguntas.", icono: estetoscopio }
+      - { titulo: Vacunas y prevención, texto: "Calendario de vacunas, desparasitación, microchip y pasaporte para viajar.", icono: vacuna }
+      - { titulo: Cirugía, texto: "Esterilizaciones y cirugía de tejidos blandos con anestesia monitorizada.", icono: bisturi }
+      - { titulo: Diagnóstico por imagen, texto: "Radiografía digital, ecografía y análisis de sangre con resultado en el día.", icono: microscopio }
+      - { titulo: Odontología, texto: "Limpieza de boca con ultrasonidos y extracciones sin dolor.", icono: diente }
+      - { titulo: Peluquería, texto: "Baño, corte y deslanado con productos suaves, sin sedantes.", icono: tijeras }
+      - { titulo: Nutrición, texto: "Dietas para cada edad, sobrepeso y alergias alimentarias.", icono: hueso }
+      - { titulo: Animales exóticos, texto: "Conejos, hurones, cobayas, aves y reptiles, con veterinaria especializada.", icono: huella }
+
+  urgencias:
+    activa: true
+    antetitulo: Urgencias 24 horas
+    titulo: ¿Es una urgencia? Llama ahora.
+    texto: "Fuera de horario te atiende un veterinario de guardia. Si puedes, llama antes de venir y tendremos la sala preparada cuando llegues."
+    destacado: { titulo: Teléfono de urgencias, telefono: "699 31 24 24", texto: "Todos los días del año, también festivos." }
+    items:
+      - { titulo: Le cuesta respirar }
+      - { titulo: Ha comido algo tóxico }
+      - { titulo: Golpe o atropello }
+      - { titulo: Vómitos con sangre }
+      - { titulo: No puede orinar }
+      - { titulo: Convulsiones }
+
+  clinica:
+    activa: true
+    antetitulo: La clínica
+    titulo: Una casa tranquila en el centro de Vitoria
+    texto: "Abrimos en 2009 con una idea sencilla: que tu animal llegue nervioso y se vaya tranquilo. Por eso las consultas duran lo que tienen que durar y nadie te mete prisa.\n\nTenemos sala de espera separada para gatos, quirófano propio, hospitalización y laboratorio. Casi todo se resuelve aquí, sin mandarte a otro sitio."
+    imagen: /fotos/clinica.jpg
+    cta: { texto: Conoce al equipo, url: "/#equipo" }
+    items:
+      - { titulo: Sala de espera solo para gatos, icono: gato }
+      - { titulo: Quirófano y hospitalización, icono: corazon }
+      - { titulo: Laboratorio propio, icono: microscopio }
+    galeria:
+      - /fotos/galeria-1.jpg
+      - /fotos/galeria-2.jpg
+      - /fotos/galeria-3.jpg
+      - /fotos/galeria-4.jpg
+
+  equipo:
+    activa: true
+    antetitulo: Equipo
+    titulo: Las manos que lo van a cuidar
+    texto: "Tres veterinarios y un auxiliar que conocen a tu animal por su nombre."
+    personas:
+      - { nombre: Ane Urquiola, cargo: Directora clínica, foto: /placeholders/persona.svg, texto: "Medicina interna y cirugía" }
+      - { nombre: Iker Basterra, cargo: Veterinario, foto: /placeholders/persona.svg, texto: "Diagnóstico por imagen" }
+      - { nombre: Leire Mendizabal, cargo: Veterinaria, foto: /placeholders/persona.svg, texto: "Medicina felina y exóticos" }
+      - { nombre: Jon Etxebarria, cargo: Auxiliar y peluquero, foto: /placeholders/persona.svg, texto: "Peluquería y hospitalización" }
+
+  tarifas:
+    activa: true
+    antetitulo: Tarifas
+    titulo: Precios claros, sin sorpresas
+    texto: "Precios orientativos con IVA incluido. Antes de cualquier cirugía te damos el presupuesto por escrito."
+    tarifas:   # se agrupan por `categoria` en el orden en que aparecen
+      - { nombre: Consulta general, texto: "Exploración completa y diagnóstico.", precio: "35 €", categoria: Consultas }
+      - { nombre: Revisión anual con vacuna, texto: "Revisión, vacuna polivalente y cartilla al día.", precio: "48 €", categoria: Consultas }
+      - { nombre: Urgencia fuera de horario, texto: "Noches, domingos y festivos.", precio: "desde 90 €", categoria: Consultas }
+      - { nombre: Vacuna de la rabia, texto: "Obligatoria para perros, gatos y hurones.", precio: "30 €", categoria: Prevención }
+      - { nombre: Desparasitación interna y externa, texto: "Según peso y especie.", precio: "desde 18 €", categoria: Prevención }
+      - { nombre: Microchip y alta en el registro, texto: "Incluye el alta en el registro oficial.", precio: "40 €", categoria: Prevención }
+      - { nombre: Esterilización de gata, texto: "Con analítica previa y revisión posterior.", precio: "desde 160 €", categoria: Cirugía }
+      - { nombre: Castración de perro, texto: "Según peso.", precio: "desde 190 €", categoria: Cirugía }
+      - { nombre: Baño y corte, texto: "Perro pequeño. Mediano y grande, consultar.", precio: "desde 28 €", categoria: Peluquería }
+    nota: "Pago con tarjeta o Bizum. Si necesitas fraccionar un tratamiento largo, pregúntanos."
+
+  consejos:
+    activa: true
+    antetitulo: Consejos
+    titulo: Lo que contamos en la consulta, por escrito
+    texto: "Pequeñas guías para cuidar mejor de tu animal en casa."
+    noticias:
+      - { fecha: 14 oct 2026, titulo: "Procesionaria: qué hacer si tu perro la toca", texto: "Llega con el final del invierno a los pinares. Te contamos cómo reconocerla y por qué hay que venir enseguida.", imagen: /fotos/consejo-1.jpg, url: "" }
+      - { fecha: 30 sep 2026, titulo: Cómo acostumbrar a tu gato al transportín, texto: "Unos días de juego y premios bastan para que la visita al veterinario deje de ser un drama.", imagen: /fotos/consejo-2.jpg, url: "" }
+      - { fecha: 12 sep 2026, titulo: "Las primeras vacunas del cachorro, explicadas", texto: "Qué se pone, cuándo y por qué no conviene salir a la calle hasta completar la pauta.", imagen: /fotos/consejo-3.jpg, url: "" }
+
+  opiniones:
+    activa: true
+    antetitulo: Opiniones
+    titulo: Lo que cuentan sus dueños
+    testimonios:
+      - { texto: "Llegamos a las tres de la mañana con Kira envenenada y nos atendieron como si fuera suya. Hoy está perfecta.", autor: "Maite · con Kira, 6 años" }
+      - { texto: "Mi gato odia salir de casa y aquí es el único sitio donde no bufa. La sala para gatos se nota.", autor: "Gorka · con Txuri, 11 años" }
+      - { texto: "Nos explicaron la operación de nuestro conejo con dibujos y nos llamaron dos veces para ver cómo seguía.", autor: "Elena · con Pompón, 3 años" }
+
+  preguntas:
+    activa: true
+    antetitulo: Preguntas frecuentes
+    titulo: Lo que nos preguntáis en el mostrador
+    texto: "¿No encuentras tu duda? Llámanos o escríbenos por WhatsApp."
+    preguntas:
+      - { pregunta: ¿Tengo que pedir cita o puedo ir directamente?, respuesta: "Mejor con cita: así no esperas y tu animal tampoco. Las urgencias las atendemos siempre, con cita o sin ella." }
+      - { pregunta: ¿Atendéis urgencias por la noche?, respuesta: "Sí. Fuera de horario llama al teléfono de urgencias y te atiende el veterinario de guardia, los 365 días del año." }
+      - { pregunta: "¿Veis conejos, hurones y otros animales exóticos?", respuesta: "Sí. Una de nuestras veterinarias está especializada en exóticos: conejos, hurones, cobayas, aves y reptiles." }
+      - { pregunta: ¿Qué tengo que traer a la primera visita?, respuesta: "La cartilla o el pasaporte si lo tiene y cualquier informe o análisis anterior. Los gatos, siempre en transportín." }
+      - { pregunta: ¿A qué edad conviene esterilizar?, respuesta: "Depende de la especie, la raza y el tamaño. Lo vemos en consulta y te explicamos las ventajas y el mejor momento." }
+
+  cita:
+    activa: true
+    antetitulo: Pedir cita
+    titulo: Pide cita en un minuto
+    texto: "Cuéntanos quién viene y qué le pasa. Te confirmamos día y hora en el mismo día, por teléfono o por WhatsApp."
+    imagen: /fotos/cita.jpg
+    opciones: "Perro; Gato; Conejo; Hurón; Ave; Reptil; Otro"
+    cta: { texto: Pedir cita por WhatsApp, url: "" }
+    items:
+      - { titulo: Cuéntanos qué le pasa }
+      - { titulo: Te damos día y hora }
+      - { titulo: Ven con su cartilla }
+
+  contacto:
+    activa: true
+    antetitulo: Contacto
+    titulo: Ven a vernos
+    texto: "A dos minutos del parque de la Florida. Hay aparcamiento en la calle Manuel Iradier."
+    imagen: /fotos/contacto.jpg
+    horario:
+      - { dia: Lunes a viernes, horas: "9:30 a 13:30 y 16:30 a 20:00" }
+      - { dia: Sábados, horas: "10:00 a 13:30" }
+      - { dia: Urgencias, horas: "24 horas, todos los días" }

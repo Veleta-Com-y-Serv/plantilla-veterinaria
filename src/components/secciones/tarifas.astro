@@ -1,0 +1,71 @@
+---
+// Tarifas: banda turquesa honda con un círculo grande. `tarifas` {nombre, texto, precio, categoria} agrupadas por
+// `categoria` en el orden en que aparecen, cada grupo en una columna (hasta 4 en escritorio) con filas
+// nombre ··· precio. Sin precio no se pinta precio; sin categoría, un solo grupo. `nota` debajo, `cta` opcional.
+import { seccion } from '../../data/site';
+import type { Tarifa } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const tarifas = s ? s.tarifas.filter((t) => t?.nombre) : [];
+const grupos: { nombre: string; tarifas: Tarifa[] }[] = [];
+for (const t of tarifas) {
+  const g = (t.categoria ?? '').toString().trim();
+  let grupo = grupos.find((x) => x.nombre === g);
+  if (!grupo) grupos.push((grupo = { nombre: g, tarifas: [] }));
+  grupo.tarifas.push(t);
+}
+const nota = s ? (s.nota ?? '').toString().trim() : '';
+const columnas = Math.min(grupos.length, 4);
+---
+
+{
+  s && (
+    <Seccion id={Astro.props.id} tono="hondo">
+      <span class="circulo tar-c1" aria-hidden="true" />
+      <Titular alinear="partido" antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} />
+      {grupos.length > 0 && (
+        <div class:list={['tar-rejilla', `tar-rejilla--${columnas}`]}>
+          {grupos.map((g) => (
+            <div class="tar-grupo">
+              {g.nombre && <h3 class="tar-grupo-nombre">{g.nombre}</h3>}
+              <ul class="grid">
+                {g.tarifas.map((t) => (
+                  <li class="tar-fila">
+                    <p class="flex items-baseline justify-between gap-4">
+                      <span class="font-bold">{t.nombre}</span>
+                      {t.precio && <span class="tar-precio">{t.precio}</span>}
+                    </p>
+                    {t.texto && <p class="mt-1 text-sm opacity-75">{t.texto}</p>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
+      {(nota || s.cta?.url) && (
+        <div class="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+          {nota && <p class="max-w-2xl text-sm opacity-80">{nota}</p>}
+          {s.cta?.url && <a class="btn" href={s.cta.url}>{s.cta.texto}</a>}
+        </div>
+      )}
+    </Seccion>
+  )
+}
+
+<style>
+  .tar-c1 { width: 44rem; height: 44rem; left: -18rem; bottom: -22rem; background: color-mix(in srgb, var(--c-primario) 45%, transparent); }
+  .tar-rejilla { display: grid; gap: 1.25rem; }
+  @media (min-width: 768px) { .tar-rejilla--2, .tar-rejilla--3, .tar-rejilla--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1200px) {
+    .tar-rejilla--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .tar-rejilla--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+  .tar-grupo { padding: 1.5rem 1.5rem .75rem; border-radius: 2rem; background: color-mix(in srgb, #fff 7%, transparent); border: 1px solid color-mix(in srgb, #fff 12%, transparent); }
+  .tar-grupo-nombre { display: inline-flex; padding: .35rem .9rem; margin-bottom: .5rem; border-radius: 999px; background: var(--c-acento); color: var(--tinta); font-size: .8rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+  .tar-fila { padding-block: .9rem; border-bottom: 1px dashed color-mix(in srgb, #fff 22%, transparent); }
+  .tar-fila:last-child { border-bottom: 0; }
+  .tar-precio { flex: none; font-family: var(--fuente-titulos); font-size: 1.15rem; font-weight: 850; color: var(--c-acento); white-space: nowrap; }
+</style>

@@ -1,0 +1,60 @@
+---
+// Urgencias: banda coral a todo el ancho con círculos grandes. A la izquierda, titular y «cuándo llamar»
+// (`items` con `titulo`, en píldoras); a la derecha, el teléfono gigante de `destacado` {titulo, telefono, texto}
+// (sin `destacado.telefono`, el de contacto). Sin ningún teléfono no hay número, solo el texto.
+import { seccion, site, tel } from '../../data/site';
+import Seccion from '../ui/Seccion.astro';
+import Titular from '../ui/Titular.astro';
+import Icono from '../ui/Icono.astro';
+interface Props { id: string }
+const s = seccion(Astro.props.id);
+const d = (s?.destacado ?? {}) as { titulo?: string; telefono?: string; texto?: string };
+const numero = (d.telefono ?? '').toString().trim() || site.contacto.telefono;
+const items = s ? s.items.filter((it) => it?.titulo) : [];
+---
+
+{
+  s && (
+    <Seccion id={Astro.props.id} tono="coral">
+      <span class="circulo urg-c1" aria-hidden="true" />
+      <span class="circulo urg-c2" aria-hidden="true" />
+      <div class="grid items-center gap-10 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
+        <div>
+          <Titular antetitulo={s.antetitulo} titulo={s.titulo} texto={s.texto} class="!mb-0" />
+          {items.length > 0 && (
+            <ul class="mt-8 flex flex-wrap gap-2">
+              {items.map((it) => (
+                <li class="pastilla urg-pastilla">
+                  <Icono nombre={it.icono ?? 'cruz'} tam={14} />
+                  {it.titulo}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+        {numero && (
+          <a href={tel(numero)} class="urg-telefono">
+            {d.titulo && <span class="urg-etiqueta">{d.titulo}</span>}
+            <span class="urg-numero">
+              <span class="urg-icono" aria-hidden="true"><Icono nombre="telefono" tam={30} /></span>
+              {numero}
+            </span>
+            {d.texto && <span class="urg-texto">{d.texto}</span>}
+          </a>
+        )}
+      </div>
+    </Seccion>
+  )
+}
+
+<style>
+  .urg-c1 { width: 40rem; height: 40rem; right: -16rem; top: -14rem; background: color-mix(in srgb, #fff 16%, transparent); }
+  .urg-c2 { width: 16rem; height: 16rem; left: -6rem; bottom: -4rem; border: 2.5rem solid color-mix(in srgb, var(--tinta) 8%, transparent); }
+  .urg-pastilla { background: color-mix(in srgb, var(--tinta) 9%, transparent); border: 1.5px solid color-mix(in srgb, var(--tinta) 25%, transparent); }
+  .urg-telefono { display: grid; gap: .6rem; padding: clamp(1.5rem, 3vw, 2.75rem); border-radius: 2.5rem; background: var(--hondo); color: #fff; text-decoration: none; box-shadow: 0 30px 60px -30px rgb(0 0 0 / .6); transition: transform .2s ease; }
+  .urg-telefono:hover { transform: translateY(-3px) rotate(-.5deg); }
+  .urg-etiqueta { font-size: .8rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--c-acento); }
+  .urg-numero { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem; font-family: var(--fuente-titulos); font-weight: 900; font-size: clamp(2.2rem, 6.4vw, 4.6rem); line-height: 1; letter-spacing: -0.04em; white-space: nowrap; }
+  .urg-icono { display: grid; place-items: center; width: 3.5rem; height: 3.5rem; flex: none; border-radius: 999px; background: var(--c-acento); color: var(--tinta); }
+  .urg-texto { opacity: .85; }
+</style>
