@@ -52,3 +52,10 @@ equipo en 4 columnas, tarifas en 4 grupos, opiniones con la primera a doble anch
 - [ ] Fotos de `fotos.json` y previews (`preview/card.jpg`, `preview/full.jpg`) con `tools/plantillas/previews.mjs`.
 - [ ] Repo `Veleta-Com-y-Serv/plantilla-veterinaria` con la etiqueta `v1.0.0`.
 - [ ] En la plataforma: `config/plantillas.php` (`repos` y `refs`) y `php artisan plantillas:sync --demos`.
+
+## Páginas propias (fichas)
+Con la misma piel que la portada: cabecera y pie de la plantilla, migas (Inicio › Sección › Elemento), hero con la foto del
+elemento (sin foto, su icono), `detalle` en párrafos, tabla de datos, caja de contacto, galería (`imagenes`) y otros elementos
+de la misma lista.
+
+Diseño de las fichas: banda turquesa con migas y hero partido (título con trazo coral, precio en píldora coral, foto en arco con aro coral o, sin foto, icono en círculo); banda blanca con el `detalle`, tabla «En pocas palabras» en menta y caja coral de cita; galería en banda menta y «Otros servicios» en banda hondo con tarjetas translúcidas. Clases con prefijo `fv-`.

@@ -1,11 +1,13 @@
 ---
 // Servicios: banda blanca con el titular partido (título a la izquierda, texto a la derecha) y una rejilla de
 // fichas menta de esquinas muy redondeadas, con el icono en un círculo blanco (4 columnas en escritorio).
-// `items`: {titulo, texto, icono}. Sin servicios, solo el titular.
+// `items`: {titulo, texto, icono, detalle}. Los servicios con `detalle` tienen página propia (/servicios/<slug>/) y la
+// tarjeta entera enlaza a ella; los demás se quedan como texto. Sin servicios, solo el titular.
 import { seccion } from '../../data/site';
 import Seccion from '../ui/Seccion.astro';
 import Titular from '../ui/Titular.astro';
 import Icono from '../ui/Icono.astro';
+import { enlaceDe } from '../../lib/paginas';
 interface Props { id: string }
 const s = seccion(Astro.props.id);
 const items = s ? s.items.filter((it) => it?.titulo) : [];
@@ -18,13 +20,14 @@ const items = s ? s.items.filter((it) => it?.titulo) : [];
       {items.length > 0 && (
         <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
           {items.map((it) => (
-            <li class="ficha flex gap-4 p-5 sm:flex-col sm:gap-0 sm:p-6 md:p-8">
+            <li class="ficha relative flex gap-4 p-5 sm:flex-col sm:gap-0 sm:p-6 md:p-8">
               <span class="ficha-icono">
                 <Icono nombre={it.icono} tam={28} />
               </span>
               <div class="min-w-0">
-                <h3 class="text-[1.2rem] sm:mt-6 sm:text-[1.35rem]">{it.titulo}</h3>
+                <h3 class="text-[1.2rem] sm:mt-6 sm:text-[1.35rem]">{enlaceDe(it) ? <a href={enlaceDe(it)} class="ficha-enlace">{it.titulo}</a> : it.titulo}</h3>
                 {it.texto && <p class="mt-1.5 text-[.96rem] opacity-80 sm:mt-2">{it.texto}</p>}
+                {enlaceDe(it) && <span class="ficha-ver" aria-hidden="true">Ver más <Icono nombre="flecha" tam={16} /></span>}
               </div>
             </li>
           ))}
@@ -34,3 +37,12 @@ const items = s ? s.items.filter((it) => it?.titulo) : [];
     </Seccion>
   )
 }
+
+<style>
+  .ficha-enlace { color: inherit; text-decoration: none; overflow-wrap: anywhere; }
+  .ficha-enlace::after { content: ""; position: absolute; inset: 0; border-radius: 2rem; }
+  .ficha-enlace:focus-visible { outline: none; }
+  .ficha:has(.ficha-enlace:focus-visible) { outline: 3px solid var(--c-acento); outline-offset: 3px; }
+  .ficha-ver { display: inline-flex; align-items: center; gap: .3rem; margin-top: .75rem; font-weight: 750; font-size: .95rem; color: var(--c-primario); }
+  .ficha:hover .ficha-ver { color: #fff; }
+</style>

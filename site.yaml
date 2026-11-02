@@ -55,12 +55,52 @@ secciones:
     titulo: Todo lo que necesita, bajo el mismo techo
     texto: "Desde la primera vacuna del cachorro hasta los cuidados de un abuelo de quince años. Te explicamos cada paso y su precio antes de empezar."
     items:
-      - { titulo: Consulta general, texto: "Revisión completa, diagnóstico y tratamiento, con tiempo para tus preguntas.", icono: estetoscopio }
-      - { titulo: Vacunas y prevención, texto: "Calendario de vacunas, desparasitación, microchip y pasaporte para viajar.", icono: vacuna }
-      - { titulo: Cirugía, texto: "Esterilizaciones y cirugía de tejidos blandos con anestesia monitorizada.", icono: bisturi }
+      - titulo: Consulta general
+        texto: "Revisión completa, diagnóstico y tratamiento, con tiempo para tus preguntas."
+        icono: estetoscopio
+        detalle: |
+          La consulta general es la puerta de entrada a casi todo lo que hacemos. Sirve para la primera visita de un cachorro o un gatito, para el control de un animal sano y para cuando algo no va bien y no sabes por qué: ha dejado de comer, cojea, se rasca sin parar o simplemente lo notas apagado.
+
+          Empezamos escuchándote. Quien mejor conoce a tu animal eres tú, y lo que nos cuentas sobre sus hábitos, su comida y sus rutinas orienta la exploración. Después le hacemos un examen completo, de la nariz a la cola, con calma y sin forzarlo: en la sala hay golosinas, mantas y todo el tiempo que haga falta para que se relaje.
+
+          Si hace falta una prueba más, te lo explicamos antes de hacerla y te decimos para qué sirve. Al terminar sales con un diagnóstico claro, un tratamiento por escrito y el teléfono de la clínica por si te surge cualquier duda en casa. Si el caso necesita cirugía, imagen o analítica, se resuelve en la misma clínica.
+      - titulo: Vacunas y prevención
+        texto: "Calendario de vacunas, desparasitación, microchip y pasaporte para viajar."
+        icono: vacuna
+        detalle: |
+          Prevenir es la forma más sencilla y más barata de cuidar a un animal. Con un calendario bien llevado se evitan muchas enfermedades graves que, una vez declaradas, son difíciles de tratar y dolorosas para el animal y para su familia.
+
+          En la primera visita revisamos la cartilla, miramos la edad, el estilo de vida y el entorno de tu perro, gato o hurón, y montamos un calendario a su medida: no vive igual un gato de piso que un perro que sale al monte los fines de semana. Te dejamos por escrito qué toca y cuándo, y te avisamos cuando se acerca la fecha.
+
+          Aquí también hacemos la desparasitación interna y externa, la colocación del microchip con su alta en el registro oficial y el pasaporte para viajar con tu animal por Europa. Si tienes un viaje en el horizonte, cuéntanoslo con tiempo, porque algunos trámites exigen esperas entre una vacuna y la salida. Todo el procedimiento es rápido, y con un poco de cariño casi ningún animal se queja.
+      - titulo: Cirugía
+        texto: "Esterilizaciones y cirugía de tejidos blandos con anestesia monitorizada."
+        icono: bisturi
+        detalle: |
+          Operamos en nuestro propio quirófano, con el material esterilizado y un veterinario pendiente del animal de principio a fin. Hacemos esterilizaciones y castraciones, retirada de bultos, cirugía de la piel y otras intervenciones de tejidos blandos. Lo que se sale de nuestro alcance lo derivamos a un especialista de confianza y te acompañamos en el proceso.
+
+          Antes de la operación hacemos una revisión y una analítica para conocer el estado de tu animal y elegir la anestesia más adecuada. Durante la intervención se controlan el corazón, la respiración y la temperatura con monitores, y el despertar se vigila de cerca en un espacio tranquilo y templado.
+
+          Te explicamos con detalle cómo preparar el ayuno de la víspera, qué esperar al volver a casa y cómo cuidar la herida. Dejamos concertada una revisión posterior y tienes el teléfono de la clínica, y el de urgencias, para cualquier duda durante la recuperación. Si necesita pasar la noche con nosotros, dispone de hospitalización con vigilancia y un rincón cómodo.
       - { titulo: Diagnóstico por imagen, texto: "Radiografía digital, ecografía y análisis de sangre con resultado en el día.", icono: microscopio }
-      - { titulo: Odontología, texto: "Limpieza de boca con ultrasonidos y extracciones sin dolor.", icono: diente }
-      - { titulo: Peluquería, texto: "Baño, corte y deslanado con productos suaves, sin sedantes.", icono: tijeras }
+      - titulo: Odontología
+        texto: "Limpieza de boca con ultrasonidos y extracciones sin dolor."
+        icono: diente
+        detalle: |
+          Una boca sana alarga y mejora la vida de perros y gatos. El sarro, el mal aliento y las encías rojas no son una simple molestia: pueden doler, impedir que coma con gusto y, con los años, afectar al corazón y a los riñones.
+
+          La limpieza se hace con ultrasonidos, bajo anestesia, que es lo que nos permite trabajar a fondo y sin que el animal sufra ni se asuste. Retiramos el sarro, revisamos diente por diente, pulimos el esmalte y, si alguna pieza está dañada y no tiene arreglo, la extraemos con control del dolor antes, durante y después de la intervención.
+
+          Antes de empezar hacemos una revisión y, si hace falta, una analítica. Cuando termina, te explicamos qué hemos encontrado, te enseñamos cómo cepillarle los dientes en casa y qué premios o piensos ayudan a mantenerlos limpios. En muchos casos, el animal come mejor y juega más a los pocos días.
+      - titulo: Peluquería
+        texto: "Baño, corte y deslanado con productos suaves, sin sedantes."
+        icono: tijeras
+        detalle: |
+          La peluquería de la clínica es un servicio pensado para animales que no la pasan bien en una peluquería cualquiera: nerviosos, mayores, con la piel delicada o con alguna dolencia. Al estar dentro de la clínica, cualquier cosa que aparezca en la piel, los oídos o las uñas la vemos al momento.
+
+          Trabajamos sin sedantes y sin prisas, con productos suaves elegidos según el tipo de pelo y de piel. El baño, el secado y el cepillado se hacen con la paciencia que haga falta, y si tu animal necesita un descanso a mitad de sesión, se lo damos. Ofrecemos baño, corte a tijera o a máquina, deslanado y arreglo de uñas.
+
+          Cuéntanos al reservar cómo es tu animal, qué corte te gusta y si hay algo que le molesta. A la salida te explicamos el cuidado del pelo en casa, cada cuánto conviene volver y qué cepillo le va mejor. Y si en el baño encontramos algo raro, te lo decimos y lo vemos en consulta ese mismo día.
       - { titulo: Nutrición, texto: "Dietas para cada edad, sobrepeso y alergias alimentarias.", icono: hueso }
       - { titulo: Animales exóticos, texto: "Conejos, hurones, cobayas, aves y reptiles, con veterinaria especializada.", icono: huella }
 
