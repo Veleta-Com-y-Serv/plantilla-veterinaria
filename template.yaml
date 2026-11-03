@@ -22,7 +22,7 @@ secciones:
   - { id: contacto, nombre: Contacto }
 estilo: cercano
 plan_minimo: presencia
-version: 1.1.0
+version: 1.2.0
 base: astrowind
 demo_url: https://demo-plantilla-veterinaria.noexpertise.com
 activa: true
@@ -31,6 +31,13 @@ orden: 270
 # Páginas propias (docs/plantillas.md § Fichas por elemento y páginas por zona). Espejo en src/data/fichas.ts.
 fichas:
   - { lista: servicios, campo: items, ruta: servicios, nombre: Servicio, tipo: Service }
+
+# Varias páginas (docs/plantillas.md § Varias páginas): reparto recomendado al activar «Varias páginas».
+# Inicio se queda con la portada y lo que no esté en ninguna página (aquí, opiniones).
+paginas:
+  - { ruta: servicios, titulo: Servicios, secciones: "servicios; urgencias; tarifas" }
+  - { ruta: la-clinica, titulo: La clínica, secciones: "clinica; equipo; consejos" }
+  - { ruta: pide-cita, titulo: Pide cita, secciones: "preguntas; cita; contacto" }
 
 # Asistente de puesta en marcha (NoExpertise): un paso por pantalla. Rutas del site sin índices;
 # tipos: texto y lista (la IA propone), datos, fotos, eleccion (colores y logo) y repaso.
